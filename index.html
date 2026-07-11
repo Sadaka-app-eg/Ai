@@ -226,8 +226,8 @@
         }, 200);
     }
 
-    // معالجة الإرسال والربط بالمحرك الذكي المطور
-    function handleSend() {
+    // معالجة الإرسال والربط بالمحرك الذكي المطور (تعديل الـ async/await للرد المنطقي)
+    async function handleSend() {
         const input = document.getElementById('user-input');
         const text = input.value.trim();
         if (!text) return;
@@ -235,12 +235,10 @@
         appendMessage(text, 'user');
         input.value = '';
 
-        // نرسل النص لملف الـ JS ليعالجه بالذاكرة المتقدمة ويعيد الرد المطور
-        setTimeout(() => {
-            const reply = assistant.analyzeInput(text);
-            appendMessage(reply, 'bot');
-            speak(reply);
-        }, 500);
+        // نرسل النص لملف الـ JS ليعالجه بالذكاء الاصطناعي التوليدي وينتظر الرد المنطقي
+        const reply = await assistant.generateLogicalResponse(text);
+        appendMessage(reply, 'bot');
+        speak(reply);
     }
 
     function appendMessage(text, sender) {
@@ -310,4 +308,3 @@
 
 </body>
 </html>
-
